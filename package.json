@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server/start.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/DenisKhay/gql-apollo-temp/issues"
   },
-  "homepage": "https://github.com/DenisKhay/gql-apollo-temp#readme"
+  "homepage": "https://github.com/DenisKhay/gql-apollo-temp#readme",
+  "dependencies": {
+    "express": "4.16.4",
+    "express-graphql": "0.7.1",
+    "graphql": "14.0.2",
+    "nodemon": "1.18.5"
+  }
 }
