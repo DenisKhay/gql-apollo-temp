@@ -2,8 +2,17 @@ const graphql = require('graphql');
 const mongoose = require('mongoose');
 const { connection, Schema } = mongoose;
 
-mongoose.connect('mongodb://localhost:27017/my-super-db', { useNewUrlParser: true });
+const {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLInt,
+  GraphQLID,
+  GraphQLSchema,
+  GraphQLList,
+} = graphql;
 
+mongoose.connect('mongodb://localhost:27017/my-super-db',
+  { useNewUrlParser: true });
 connection.on('error', (e) => {
   console.error('Connection error: ', e);
 });
@@ -15,23 +24,30 @@ const bookSchema = new Schema({
   name: String,
   genre: String,
 });
-
 const Book = mongoose.model('book', bookSchema);
-
-const {
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLSchema,
-  GraphQLList
-} = graphql;
-
 const BookType = new GraphQLObjectType({
   name: 'Book',
   fields: () => {
     return {
-      id: { type: GraphQLString },
+      id: { type: GraphQLID },
       name: { type: GraphQLString },
       genre: { type: GraphQLString },
+    };
+  },
+});
+
+const authorSchema = new Schema({
+  name: String,
+  age: String,
+});
+const Author = mongoose.model('author', authorSchema);
+const AuthorType = new GraphQLObjectType({
+  name: 'Author',
+  fields: () => {
+    return {
+      id: { type: GraphQLID },
+      name: { type: GraphQLString },
+      genre: { type: GraphQLInt },
     };
   },
 });
@@ -41,15 +57,28 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     book: {
       type: BookType,
-      args: { id: { type: GraphQLString }},
+      args: { id: { type: GraphQLID }},
       resolve: (parent, args) => {
         return Book.findById(args.id);
       },
     },
     books: {
       type: new GraphQLList(BookType),
-      resolve: async (parent, args) => {
+      resolve: async () => {
         return Book.find({});
+      },
+    },
+    author: {
+      type: AuthorType,
+      args: { id: { type: GraphQLID }},
+      resolve(parent, args) {
+        return Author.findById(args.id);
+      },
+    },
+    authors: {
+      type: new GraphQLList(AuthorType),
+      resolve() {
+        return Author.find({});
       },
     },
   },
