@@ -1,9 +1,8 @@
 const graphql = require('graphql');
 const mongoose = require('mongoose');
-const {connection, Schema} = mongoose;
+const { connection, Schema } = mongoose;
 
-mongoose.connect('mongodb://localhost:27017/my-super-db',
-    {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost:27017/my-super-db', { useNewUrlParser: true });
 
 connection.on('error', (e) => {
   console.error('Connection error: ', e);
@@ -11,6 +10,7 @@ connection.on('error', (e) => {
 connection.once('open', () => {
   console.log('Connection established');
 });
+
 const bookSchema = new Schema({
   name: String,
   genre: String,
@@ -18,15 +18,20 @@ const bookSchema = new Schema({
 
 const Book = mongoose.model('book', bookSchema);
 
-const {GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLList} = graphql;
+const {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLSchema,
+  GraphQLList
+} = graphql;
 
 const BookType = new GraphQLObjectType({
   name: 'Book',
   fields: () => {
     return {
-      id: {type: GraphQLString},
-      name: {type: GraphQLString},
-      genre: {type: GraphQLString},
+      id: { type: GraphQLString },
+      name: { type: GraphQLString },
+      genre: { type: GraphQLString },
     };
   },
 });
@@ -36,9 +41,9 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     book: {
       type: BookType,
-      args: {id: {type: GraphQLString}},
-      resolve: async (parent, args) => {
-        return await Book.findById(args.id);
+      args: { id: { type: GraphQLString }},
+      resolve: (parent, args) => {
+        return Book.findById(args.id);
       },
     },
     books: {
