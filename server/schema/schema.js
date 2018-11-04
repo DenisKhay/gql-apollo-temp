@@ -1,6 +1,8 @@
 const graphql = require('graphql');
 const mongoose = require('mongoose');
-const { connection, Schema } = mongoose;
+const { connection } = mongoose;
+const Book = require('../models/book');
+const Author = require('../models/author');
 
 const {
   GraphQLObjectType,
@@ -19,29 +21,56 @@ connection.once('open', () => {
   console.log('Connection established');
 });
 
-const authorSchema = new Schema({
-  name: String,
-  age: String,
-});
-const bookSchema = new Schema({
-  name: String,
-  genre: String,
-  authorId: String,
-});
+const createContent = async () => {
+  let author = await new Author({
+    name: 'Arthur Conan Doile',
+    age: 50
+  }).save();
 
-const Author = mongoose.model('author', authorSchema);
-const Book = mongoose.model('book', bookSchema);
+  new Book({
+    name: 'Book first of Arh CD',
+    genre: 'detective',
+    authorId: author.id
+  }).save();
 
-// new Author({
-//   name: 'Some Another',
-//   age: 70
-// }).save().then((author) => {
-//   new Book({
-//     name: 'Book Of Some Another',
-//     genre: 'Drama',
-//     authorId: author.id
-//   }).save();
-// });
+  new Book({
+    name: 'Book second of ACD',
+    genre: 'detective',
+    authorId: author.id
+  }).save();
+
+  new Book({
+    name: 'Book third of Arthur Conan Doil',
+    genre: 'detective',
+    authorId: author.id
+  }).save();
+
+  author = await new Author({
+    name: 'Leo Tolstoy',
+    age: 45
+  }).save();
+
+  new Book({
+    name: 'War and Peace',
+    genre: 'Drama',
+    authorId: author.id
+  }).save();
+
+  new Book({
+    name: 'Second one of Leo',
+    genre: 'drama',
+    authorId: author.id
+  }).save();
+
+  new Book({
+    name: 'Third one of Leo',
+    genre: 'drama',
+    authorId: author.id
+  }).save();
+
+};
+//createContent();
+
 
 const AuthorType = new GraphQLObjectType({
   name: 'Author',
@@ -82,7 +111,7 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     book: {
       type: BookType,
-      args: { id: { type: GraphQLID }},
+      args: { id: { type: GraphQLID } },
       resolve: (parent, args) => {
         return Book.findById(args.id);
       },
@@ -95,7 +124,7 @@ const RootQuery = new GraphQLObjectType({
     },
     author: {
       type: AuthorType,
-      args: { id: { type: GraphQLID }},
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return Author.findById(args.id);
       },
