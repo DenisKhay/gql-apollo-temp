@@ -27,7 +27,6 @@ const AuthorType = new GraphQLObjectType({
     };
   },
 });
-
 const BookType = new GraphQLObjectType({
   name: 'Book',
   fields: () => {
@@ -44,7 +43,6 @@ const BookType = new GraphQLObjectType({
     };
   },
 });
-
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
@@ -76,7 +74,6 @@ const RootQuery = new GraphQLObjectType({
     },
   },
 });
-
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
