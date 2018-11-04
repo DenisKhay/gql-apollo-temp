@@ -11,8 +11,7 @@ const {
   GraphQLList,
 } = graphql;
 
-mongoose.connect('mongodb://localhost:27017/my-super-db',
-  { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost:27017/my-super-db', { useNewUrlParser: true });
 connection.on('error', (e) => {
   console.error('Connection error: ', e);
 });
@@ -20,11 +19,41 @@ connection.once('open', () => {
   console.log('Connection established');
 });
 
+const authorSchema = new Schema({
+  name: String,
+  age: String,
+});
 const bookSchema = new Schema({
   name: String,
   genre: String,
+  authorId: String,
 });
+
+const Author = mongoose.model('author', authorSchema);
 const Book = mongoose.model('book', bookSchema);
+
+// new Author({
+//   name: 'Some Another',
+//   age: 70
+// }).save().then((author) => {
+//   new Book({
+//     name: 'Book Of Some Another',
+//     genre: 'Drama',
+//     authorId: author.id
+//   }).save();
+// });
+
+const AuthorType = new GraphQLObjectType({
+  name: 'Author',
+  fields: () => {
+    return {
+      id: { type: GraphQLID },
+      name: { type: GraphQLString },
+      age: { type: GraphQLInt },
+    };
+  },
+});
+
 const BookType = new GraphQLObjectType({
   name: 'Book',
   fields: () => {
@@ -32,22 +61,12 @@ const BookType = new GraphQLObjectType({
       id: { type: GraphQLID },
       name: { type: GraphQLString },
       genre: { type: GraphQLString },
-    };
-  },
-});
-
-const authorSchema = new Schema({
-  name: String,
-  age: String,
-});
-const Author = mongoose.model('author', authorSchema);
-const AuthorType = new GraphQLObjectType({
-  name: 'Author',
-  fields: () => {
-    return {
-      id: { type: GraphQLID },
-      name: { type: GraphQLString },
-      genre: { type: GraphQLInt },
+      author: {
+        type: AuthorType,
+        resolve(parent, args) {
+          return Author.findById(parent.authorId);
+        },
+      },
     };
   },
 });
@@ -57,7 +76,7 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     book: {
       type: BookType,
-      args: { id: { type: GraphQLID }},
+      args: { id: { type: GraphQLID } },
       resolve: (parent, args) => {
         return Book.findById(args.id);
       },
@@ -70,7 +89,7 @@ const RootQuery = new GraphQLObjectType({
     },
     author: {
       type: AuthorType,
-      args: { id: { type: GraphQLID }},
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return Author.findById(args.id);
       },
