@@ -22,12 +22,12 @@ docker run -p 27017:27017 -v $(pwd)/dbdata:/data/db --name mongo-eva --restart a
 
 ```bash
 BACKUP_FOLDER="$(pwd)/backup/"
-docker run --rm --link mongo-eva:mongo -v "${BACKUP_FOLDER}:/backup" mongo:latest bash -c "mongodump --out /backup --host mongo:27017"
+docker run --rm --link mongo-eva:mongo-als -v "${BACKUP_FOLDER}:/backup" mongo:latest bash -c "mongodump --out /backup --host mongo-als:27017"
 ```
 
 #### Restore:
 
 ```bash
 BACKUP_FOLDER="$(pwd)/backup/"
-docker run --rm --link mongo-eva:mongo -v "${BACKUP_FOLDER}:/backup" mongo:latest bash -c "mongorestore /backup --host mongo:27017"
+docker run --rm --link mongo-eva:mongo-als -v "${BACKUP_FOLDER}:/backup" mongo:latest bash -c "mongorestore /backup --host mongo-als:27017"
 ```
