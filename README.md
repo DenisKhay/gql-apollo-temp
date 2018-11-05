@@ -31,3 +31,7 @@ docker run --rm --link mongo-eva:mongo-als -v "${BACKUP_FOLDER}:/backup" mongo:l
 BACKUP_FOLDER="$(pwd)/backup/"
 docker run --rm --link mongo-eva:mongo-als -v "${BACKUP_FOLDER}:/backup" mongo:latest bash -c "mongorestore /backup --host mongo-als:27017"
 ```
+
+Next steps is rather simple - just plan with cron to run this backup string as script & pack it with some archiver & send to some place by some things.
+So for now - it is not so important to setup. Postponed to deploy preparation stage.
+We can also easily restore the data with existing backup using ssh connection and last command above
