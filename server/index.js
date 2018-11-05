@@ -4,27 +4,30 @@ const schema = require('./schema/schema');
 const mongoose = require('mongoose');
 const { connection } = mongoose;
 
+const DB_URL = 'mongodb://localhost:27017/my-super-db';
 
 
-mongoose.connect('mongodb://localhost:27017/my-super-db', { useNewUrlParser: true });
+mongoose.connect(DB_URL, { useNewUrlParser: true });
 connection.on('error', (e) => {
-  console.error('Connection error: ', e);
+  console.error('Error: ', e);
+  throw new Error('Db connection failed');
 });
 connection.once('open', () => {
+  // eslint-disable-next-line
   console.log('Connection established');
 });
 
-
 const app = express();
 
-app.use(require('cors'));
+app.use(require('cors')());
 
-app.use('/graphql', graphqlHTTP({
+app.use('/api', graphqlHTTP({
   schema,
   graphiql: true
 }));
 
 app.listen(4000, () => {
+  // eslint-disable-next-line
   console.log('now listening for requests on 4000');
 });
 

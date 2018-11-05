@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server",
+    "start": "forever start server",
+    "start:dev": "nodemon server",
     "lint": "eslint --fix ."
   },
   "repository": {
@@ -22,6 +23,7 @@
     "cors": "2.8.5",
     "express": "4.16.4",
     "express-graphql": "0.7.1",
+    "forever": "0.15.3",
     "graphql": "14.0.2",
     "mongoose": "5.3.9"
   },

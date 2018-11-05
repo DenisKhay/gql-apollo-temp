@@ -25,7 +25,7 @@ module.exports = {
       'always',
     ],
     'no-unused-vars': 0,
-    'no-console': 1,
+    'no-console': ['warn', {allow: ['warn', 'error']}],
     'object-curly-spacing': [
       'error',
       'always',

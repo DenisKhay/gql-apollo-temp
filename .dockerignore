@@ -1,0 +1,8 @@
+node_modules
+dbdata
+.dockerignore
+.eslintignore
+.eslintrc.js
+.gitignore
+Dockerfile
+README.md
