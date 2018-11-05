@@ -11,4 +11,6 @@ RUN npm i
 
 RUN ls -al -R
 
-CMD [ "npm", "start" ]
+EXPOSE 4000
+
+CMD [ "node", "server" ]

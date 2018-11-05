@@ -1,0 +1,13 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - 4000:8081
+    links:
+      - mongodb
+  mongodb:
+    image: mongo:latest
+    volumes:
+      - ./dbdata:/data/db
+    container_name: mongo-evas
