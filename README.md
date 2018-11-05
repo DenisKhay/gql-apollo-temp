@@ -15,3 +15,19 @@ docker run -p 27017:27017 -v $(pwd)/dbdata:/data/db --name mongo-eva --restart a
       
 2. How to make confident secure access to db?
     * need I set up db user/password in case if mongo does not have opened ports/adresses outside?
+    
+    
+    
+#### Backup:
+
+```bash
+BACKUP_FOLDER="$(pwd)/backup/"
+docker run --rm --link mongo-eva:mongo -v "${BACKUP_FOLDER}:/backup" mongo:latest bash -c "mongodump --out /backup --host mongo:27017"
+```
+
+#### Restore:
+
+```bash
+BACKUP_FOLDER="$(pwd)/backup/"
+docker run --rm --link mongo-eva:mongo -v "${BACKUP_FOLDER}:/backup" mongo:latest bash -c "mongorestore /backup --host mongo:27017"
+```
