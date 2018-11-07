@@ -47,3 +47,12 @@ We can also easily restore the data with existing backup using ssh connection an
 
 1. Setup run of two containers with docker-compose. Purpose is to make only api endpoint visible outside.
 2. User access? Think about it.
+
+
+#### TODO 2:
+ 1. First of previous todo is done. But still I believe I need setup admin login/password
+ 2. Need to know how to make container names more appropriate with docker-compose? 
+ container_name, yes, but seems there is some caveats.. Check it. Do it.
+ 3. Need to rework approach for to making backups using networks, not links.
+ 4. Awaiter of mongodb!!!
+ 4. User roles/access.
