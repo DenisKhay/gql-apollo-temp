@@ -3,11 +3,10 @@ services:
   web:
     build: .
     ports:
-      - 4000:8081
-    links:
-      - mongodb
-  mongodb:
+      - 4000:4002
+    depends_on:
+      - mongoeva
+  mongoeva:
     image: mongo:latest
     volumes:
       - ./dbdata:/data/db
-    container_name: mongo-evas

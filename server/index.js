@@ -4,7 +4,7 @@ const schema = require('./schema/schema');
 const mongoose = require('mongoose');
 const { connection } = mongoose;
 
-const DB_URL = 'mongodb://localhost:27017/my-super-db';
+const DB_URL = 'mongodb://mongoeva:27017/my-super-db';
 
 
 mongoose.connect(DB_URL, { useNewUrlParser: true });

@@ -14,6 +14,6 @@ RUN npm i
 RUN npm list -depth=0
 RUN ls -al -R
 
-EXPOSE 4000 27017
+EXPOSE 4000
 
-CMD [ "node", "server" ]
+CMD [ "npm", "run", "startt" ]
