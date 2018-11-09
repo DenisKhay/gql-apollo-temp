@@ -2,18 +2,22 @@ const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const schema = require('./schema/schema');
 const mongoose = require('mongoose');
-const { connection } = mongoose;
 
-const DB_URL = `mongodb://${process.env.USERNAME}:${process.env.PASSWORD}@mongoeva:27017/books-shell`;
+const PORT = '27017';
+const HOST='mongoeva';
 
-mongoose.connect(DB_URL, { useNewUrlParser: true });
-connection.on('error', (e) => {
-  console.error('Error: ', e);
-  throw new Error('Db connection failed');
-});
-connection.once('open', () => {
-  // eslint-disable-next-line
+const DB_URL = `mongodb://${HOST}:${PORT}?authSource=admin`;
+
+mongoose.connect(DB_URL, {
+  useNewUrlParser: true,
+  user: process.env.USERNAME,
+  pass: process.env.PASSWORD,
+  connectTimeoutMS: 10000,
+  dbName: 'my-super-db',
+}).then(() => {
   console.log('Connection established');
+}).catch((e)=>{
+  console.log('Connection error: ', e);
 });
 
 const app = express();

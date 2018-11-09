@@ -9,7 +9,6 @@ ENV NODE_ENV=production
 RUN ls -al -R
 RUN npm i
 RUN npm list -depth=0
-RUN ls -al -R
 
 EXPOSE 4000
 

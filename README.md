@@ -35,7 +35,8 @@ mongo:latest bash -c "mongodump --out /backup --host mongo-als:27017"
 BACKUP_FOLDER="$(pwd)/backup/"
 docker run --rm --link mongo-eva:mongo-als \
 -v "${BACKUP_FOLDER}:/backup" \
-mongo:latest bash -c "mongorestore /backup --host mongo-als:27017"
+mongo:latest bash -c "\mongorestore /backup \--host mongo-als --port 27017 --username usernme --password simple --authenticationDatabase admin"
+
 ```
 
 Next steps is rather simple - just plan with cron to run this backup string as script & pack it with some archiver & send to some place by some things.

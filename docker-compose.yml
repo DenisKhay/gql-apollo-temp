@@ -3,14 +3,9 @@ services:
   web:
     build: .
     ports:
-      - 4002:4000
+      - 8087:4000
     depends_on:
       - mongoeva
-    healthcheck:
-      test: ["CMD-SHELL", "./docker-healthcheck"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
     environment:
       - USERNAME
       - PASSWORD
