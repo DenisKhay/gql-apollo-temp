@@ -11,7 +11,13 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+    environment:
+      - USERNAME
+      - PASSWORD
   mongoeva:
     image: mongo:latest
     volumes:
       - ./dbdata:/data/db
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: $USERNAME
+      ME_CONFIG_MONGODB_ADMINPASSWORD: $PASSWORD

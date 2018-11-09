@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "forever start -l forever.log -o fv-out.log -e fv-err.log server",
-    "startt": "sleep 10 && node server",
+    "start:debug": "sleep 10 && node server",
     "start:dev": "nodemon server",
     "lint": "eslint --fix ."
   },

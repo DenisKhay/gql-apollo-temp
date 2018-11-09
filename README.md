@@ -56,3 +56,10 @@ We can also easily restore the data with existing backup using ssh connection an
  3. Need to rework approach for to making backups using networks, not links.
  4. Awaiter of mongodb!!!
  4. User roles/access.
+ 
+ 
+#### TODO 2 Implementation
+ 1. Okay, lets go
+ First of all we should add .env file (and sure forthwith to add it to .gitignore) 
+ Where we should define our super login and super password (for db admin).  
+ Then add required env vars to our docker-compose

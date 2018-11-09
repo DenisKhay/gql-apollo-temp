@@ -4,8 +4,7 @@ const schema = require('./schema/schema');
 const mongoose = require('mongoose');
 const { connection } = mongoose;
 
-const DB_URL = 'mongodb://mongoeva:27017/my-super-db';
-
+const DB_URL = `mongodb://${process.env.USERNAME}:${process.env.PASSWORD}@mongoeva:27017/books-shell`;
 
 mongoose.connect(DB_URL, { useNewUrlParser: true });
 connection.on('error', (e) => {
