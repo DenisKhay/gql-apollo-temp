@@ -12,12 +12,11 @@ mongoose.connect(DB_URL, {
   useNewUrlParser: true,
   user: process.env.USERNAME,
   pass: process.env.PASSWORD,
-  connectTimeoutMS: 10000,
   dbName: 'my-super-db',
 }).then(() => {
   console.log('Connection established');
 }).catch((e)=>{
-  console.log('Connection error: ', e);
+  console.error('Connection error: ', e);
 });
 
 const app = express();
