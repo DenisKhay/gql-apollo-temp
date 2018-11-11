@@ -1,13 +1,10 @@
 ### GraphQL + Express + Mongoose (It is rather log than readme) 
 
-For quick start just use it
-```bash
-docker run -p 27017:27017 -v $(pwd)/dbdata:/data/db \
---name mongo-eva \
---restart always -d mongo:latest
-```
+No - I'm just kidding, it is not road to hell and not description of it, 
+just the dock where i try to describe my way through issues which i have to solve 
+on the way to ideal (or close to it, or at least appropriate) configuration.
 
-### Before proceed I need to know:
+### So first before proceed I need to know:
 
 1. How to backup db data? In case of mongodb in docker container, need backup on hot db.
       * Restore of db after full loss of data (current is corrupted, stolen, etc. )
@@ -18,26 +15,11 @@ docker run -p 27017:27017 -v $(pwd)/dbdata:/data/db \
 2. How to make confident secure access to db?
     * need I set up db user/password in case if mongo does not have opened ports/adresses outside?
     
-    
-    
-#### Backup:
 
-```bash
-BACKUP_FOLDER="$(pwd)/backup/"
-docker run --rm --link mongo-eva:mongo-als \
--v "${BACKUP_FOLDER}:/backup" \
-mongo:latest bash -c "mongodump --out /backup --host mongo-als:27017"
-```
+#### Solving
 
-#### Restore:
+Okay, I put down some lines to readme file and i think it solves these two above.
 
-```bash
-BACKUP_FOLDER="$(pwd)/backup/"
-docker run --rm --link mongo-eva:mongo-als \
--v "${BACKUP_FOLDER}:/backup" \
-mongo:latest bash -c "\mongorestore /backup \--host mongo-als --port 27017 --username usernme --password simple --authenticationDatabase admin"
-
-```
 
 Next steps is rather simple - just plan with cron to run this backup string as script & pack it with some archiver & send to some place by some things.
 So for now - it is not so important to setup. Postponed to deploy preparation stage.
@@ -64,6 +46,18 @@ We can also easily restore the data with existing backup using ssh connection an
  First of all we should add .env file (and sure forthwith to add it to .gitignore) 
  Where we should define our super login and super password (for db admin).  
  Then add required env vars to our docker-compose
- 2. Okay, just set up it in docker-compose, all works okay with custom names.
- 3. 
- 
+ 2. Okay, configured it in the docker-compose, all works okay with custom names of network and containers.
+ 3. I think it should be something similar to 
+
+```bash
+HOST_ALIAS="mongoeva";
+PORT="27017";
+USERNAME="<db username here>";
+PASSWORD="<db password here>";
+
+MONGO_COMMAND="mongodump --out /backup --host ${HOST_ALIAS} --port ${PORT} --username ${USERNAME} --password ${PASSWORD} --authenticationDatabase admin"
+docker run --rm --network eva-network \
+-v "${BACKUP_FOLDER}:/backup" \
+mongo:latest bash -c "mongodump --out /backup --host mongoeva:27017"
+
+```

@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 services:
   web:
     build: .
@@ -9,6 +9,7 @@ services:
     environment:
       - USERNAME
       - PASSWORD
+    container_name: eva-api
   mongoeva:
     image: mongo:latest
     volumes:
@@ -16,3 +17,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: $USERNAME
       MONGO_INITDB_ROOT_PASSWORD: $PASSWORD
+    container_name: eva-mongo
+networks:
+  default:
+    name: eva-network
