@@ -116,5 +116,6 @@ mongo:latest bash -c "${MONGO_COMMAND}"
  
  - Add possibility to run server with development or production settings, w/wo auth
  - Setup access through ssh to mongodb inside container
+ - Need to find out what the heck with forever (try to pm2?). Why it is not works at the moment.
  - Awaiter of mongodb!!!
  - User roles/access.
