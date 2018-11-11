@@ -4,12 +4,14 @@ const schema = require('./schema/schema');
 const mongoose = require('mongoose');
 
 const PORT = '27017';
-const HOST='localhost';
+const HOST='evamongo';
 
-const DB_URL = `mongodb://${HOST}:${PORT}`;
+const DB_URL = `mongodb://${HOST}:${PORT}?authSource=admin`;
 
 mongoose.connect(DB_URL, {
   useNewUrlParser: true,
+  user: process.env.USERNAME,
+  pass: process.env.PASSWORD,
   dbName: 'my-super-db',
 }).then(() => {
   console.log('Connection established');

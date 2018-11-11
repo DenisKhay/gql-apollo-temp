@@ -15,10 +15,26 @@ on the way to ideal (or close to it, or at least appropriate) configuration.
 2. How to make confident secure access to db?
     * need I set up db user/password in case if mongo does not have opened ports/adresses outside?
     
-
 #### Solving
 
-Okay, I put down some lines to readme file and i think it solves these two above.
+#### Backup:
+
+```bash
+BACKUP_FOLDER="$(pwd)/backup/"
+docker run --rm --link mongo-eva:mongo-als \
+-v "${BACKUP_FOLDER}:/backup" \
+mongo:latest bash -c "mongodump --out /backup --host mongo-als:27017"
+```
+
+#### Restore:
+
+```bash
+BACKUP_FOLDER="$(pwd)/backup/"
+docker run --rm --link mongo-eva:mongo-als \
+-v "${BACKUP_FOLDER}:/backup" \
+mongo:latest bash -c "\mongorestore /backup \--host mongo-als --port 27017 --username usernme --password simple --authenticationDatabase admin"
+
+```
 
 
 Next steps is rather simple - just plan with cron to run this backup string as script & pack it with some archiver & send to some place by some things.
@@ -98,6 +114,7 @@ mongo:latest bash -c "${MONGO_COMMAND}"
 
 #####  TODO 3
  
+ - Add possibility to run server with development or production settings, w/wo auth
  - Setup access through ssh to mongodb inside container
  - Awaiter of mongodb!!!
  - User roles/access.
