@@ -66,9 +66,37 @@ Yes, it works. You can check ready scripts docker_backup.sh & docker_restore.sh
 Though, works for the network created with docker-compose.. But what if we run standalone container with mongo? (For dev purposes) 
 I intentionally do not want to consider --link because it is deprecated. Yes, still available, but - no. 
 So perhaps I should be managed to connect to it through some another network, surely. So, let's go.
+As i wrote it definitely possible to connect. First way I found:  
+ 1. Create user-defined docker network before start container. It may be like  
+
+```bash
+docker network create eva-network
+```  
+
+2.  Then run your container with params:  
+
+ ```bash
+ docker run -p 27017:27017 -v $(pwd)/dbdata:/data/db --name eva-mongo --network eva-network --network-alias evamongo mongo:latest
+```
+`3. Now you can use restore/backup technique from scripts docker_restore.sh docker_backup.sh, easily
+
+```bash
+BACKUP_FOLDER="$(pwd)/backup";
+
+PORT="27017";
+NETWORK_NAME="eva-network";
+NETWORK_CONTAINER_ALIAS="evamongo";
+
+MONGO_COMMAND="mongorestore /backup \
+--host ${NETWORK_CONTAINER_ALIAS} \
+--port ${PORT}"
+
+docker run --rm --network ${NETWORK_NAME} \
+-v "${BACKUP_FOLDER}:/backup" \
+mongo:latest bash -c "${MONGO_COMMAND}"
+```
 
 #####  TODO 3
- 
  
  - Setup access through ssh to mongodb inside container
  - Awaiter of mongodb!!!

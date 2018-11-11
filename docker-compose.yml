@@ -10,7 +10,7 @@ services:
       - USERNAME
       - PASSWORD
     container_name: eva-api
-  mongoeva:
+  evamongo:
     image: mongo:latest
     volumes:
       - ./dbdata:/data/db

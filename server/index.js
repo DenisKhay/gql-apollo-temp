@@ -4,14 +4,12 @@ const schema = require('./schema/schema');
 const mongoose = require('mongoose');
 
 const PORT = '27017';
-const HOST='mongoeva';
+const HOST='localhost';
 
-const DB_URL = `mongodb://${HOST}:${PORT}?authSource=admin`;
+const DB_URL = `mongodb://${HOST}:${PORT}`;
 
 mongoose.connect(DB_URL, {
   useNewUrlParser: true,
-  user: process.env.USERNAME,
-  pass: process.env.PASSWORD,
   dbName: 'my-super-db',
 }).then(() => {
   console.log('Connection established');
