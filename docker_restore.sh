@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
-
+. ./.env
 BACKUP_FOLDER="$(pwd)/backup";
 HOST_ALIAS="mongoeva";
 PORT="27017";
-USERNAME="helloadmin";
-PASSWORD="you_will*adm1t";
 
-MONGO_COMMAND="mongorestore \
---out /backup \
+MONGO_COMMAND="mongorestore /backup \
 --host ${HOST_ALIAS} \
 --port ${PORT} \
 --username ${USERNAME} \

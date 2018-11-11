@@ -61,3 +61,15 @@ docker run --rm --network eva-network \
 mongo:latest bash -c "mongodump --out /backup --host mongoeva:27017"
 
 ```
+
+Yes, it works. You can check ready scripts docker_backup.sh & docker_restore.sh
+Though, works for the network created with docker-compose.. But what if we run standalone container with mongo? (For dev purposes) 
+I intentionally do not want to consider --link because it is deprecated. Yes, still available, but - no. 
+So perhaps I should be managed to connect to it through some another network, surely. So, let's go.
+
+#####  TODO 3
+ 
+ 
+ - Setup access through ssh to mongodb inside container
+ - Awaiter of mongodb!!!
+ - User roles/access.
