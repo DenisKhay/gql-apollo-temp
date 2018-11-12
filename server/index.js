@@ -2,17 +2,13 @@ const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const schema = require('./schema/schema');
 const mongoose = require('mongoose');
-
-const PORT = '27017';
-const HOST='evamongo';
-
-const DB_URL = `mongodb://${HOST}:${PORT}?authSource=admin`;
+const {DB_URL, DB_NAME, DB_USERNAME, DB_PASSWORD} = require('./environment');
 
 mongoose.connect(DB_URL, {
   useNewUrlParser: true,
-  user: process.env.USERNAME,
-  pass: process.env.PASSWORD,
-  dbName: 'my-super-db',
+  user: DB_USERNAME,
+  pass: DB_PASSWORD,
+  dbName: DB_NAME,
 }).then(() => {
   console.log('Connection established');
 }).catch((e)=>{
