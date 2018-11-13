@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-. ./.env
+. ./.env-dev
 BACKUP_FOLDER="$(pwd)/backup";
 
 PORT="27017";

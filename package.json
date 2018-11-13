@@ -6,7 +6,7 @@
   "scripts": {
     "start": "sleep 10 && forever start -l forever.log -o fv-out.log -e fv-err.log server",
     "start:debug": "sleep 10 && node server",
-    "start:dev": "nodemon server",
+    "start:dev": ". ./export_npm.sh && nodemon server",
     "lint": "eslint --fix ."
   },
   "repository": {

@@ -114,7 +114,7 @@ mongo:latest bash -c "${MONGO_COMMAND}"
 
 #####  TODO 3
  
- - Add possibility to run server with development or production settings, w/wo auth
+ - Add possibility to run server with development or production settings, w/wo auth (though, for what to disable auth?)
  - Setup access through ssh to mongodb inside container
  - Need to find out what the heck with forever (try to pm2?). Why it is not works at the moment.
  - Awaiter of mongodb!!!
