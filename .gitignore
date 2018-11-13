@@ -1,4 +1,5 @@
 node_modules
 dbdata
 *.log
+logs
 .env
