@@ -5,18 +5,20 @@ services:
     ports:
       - 8087:4000
     depends_on:
-      - mongoeva
+      - evamongo
     environment:
-      - USERNAME
-      - PASSWORD
+      - DB_USERNAME
+      - DB_PASSWORD
+      - DB_NAME
+      - DB_URL
     container_name: eva-api
   evamongo:
     image: mongo:latest
     volumes:
       - ./dbdata:/data/db
     environment:
-      MONGO_INITDB_ROOT_USERNAME: $USERNAME
-      MONGO_INITDB_ROOT_PASSWORD: $PASSWORD
+      MONGO_INITDB_ROOT_USERNAME: $DB_USERNAME
+      MONGO_INITDB_ROOT_PASSWORD: $DB_PASSWORD
     container_name: eva-mongo
 networks:
   default:
