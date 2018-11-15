@@ -9,6 +9,6 @@ docker run \
 -v $(pwd)/dbdata:/data/db \
 --name eva-mongo \
 --network eva-network \
--e "MONGO_INITDB_ROOT_USERNAME=${USERNAME}" \
--e "MONGO_INITDB_ROOT_PASSWORD=${PASSWORD}" \
+-e "MONGO_INITDB_ROOT_USERNAME=${DB_USERNAME}" \
+-e "MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}" \
 --network-alias evamongo mongo:latest
