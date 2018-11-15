@@ -8,7 +8,7 @@ COPY ./package*.json ./
 ENV NODE_ENV=production
 
 RUN ls -al -R
-RUN npm i && mv -f ./server/environment/index.prod.js ./server/environment/index.js
+RUN npm ci
 RUN npm list -depth=0
 
 EXPOSE 4000
