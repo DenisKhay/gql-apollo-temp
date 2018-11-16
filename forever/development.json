@@ -1,0 +1,12 @@
+{
+  "minUpTime": 1000,
+  "spinSleepTime": 1000,
+  "debug": true,
+  "append": true,
+  "verbose": true,
+  "script": "server/index.js",
+  "watch": true,
+  "LOGFILE": "$(pwd)/logs/forever.log",
+  "ERRORFILE": "$(pwd)/logs/fv-err.log",
+  "OUTFILE": "$(pwd)/logs/fv-out.log"
+}
