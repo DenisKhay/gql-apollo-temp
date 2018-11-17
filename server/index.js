@@ -4,7 +4,6 @@ const schema = require('./schema/schema');
 const mongoose = require('mongoose');
 const {DB_URL, DB_NAME, DB_USERNAME, DB_PASSWORD} = require('./environment');
 
-console.log('env is: ', process.env);
 console.log('env fle is', require('./environment'));
 
 mongoose.connect(DB_URL, {

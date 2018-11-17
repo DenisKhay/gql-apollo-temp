@@ -5,6 +5,9 @@ WORKDIR /app/
 COPY ./server/ ./server/
 
 COPY ./package*.json ./
+COPY ./forever/production.json ./forever/production.json
+
+
 ENV NODE_ENV=production
 
 RUN ls -al -R

@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": ". ./export_npm.sh && forever start --uid \"prodfvserver\" --minUptime 1000 --spinSleepTime 1000 -l $(pwd)/logs/forever.log -o $(pwd)/logs/fv-out.log -e $(pwd)/logs/fv-err.log server",
-    "start:forever:debug": ". ./export_npm.sh && forever start --minUptime 1000 --spinSleepTime 1000 --debug --verbose --append -f -l $(pwd)/logs/forever.log server",
+    "start": "sleep 5 && forever start --minUptime 1000 --spinSleepTime 1000 -l $(pwd)/logs/forever.log -o $(pwd)/logs/fv-out.log -e $(pwd)/logs/fv-err.log forever/production.json",
+    "start:forever:debug": ". ./sh/export_env.sh && forever start --minUptime 1000 --spinSleepTime 1000 -l $(pwd)/logs/forever.log -o $(pwd)/logs/fv-out.log -e $(pwd)/logs/fv-err.log forever/development.json",
     "start:debug": "sleep 10 && node server",
     "start:dev": ". ./export_npm.sh && nodemon server",
     "lint": "eslint --fix ."

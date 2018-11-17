@@ -11,6 +11,8 @@ services:
       - DB_PASSWORD
       - DB_NAME
       - DB_URL
+    volumes:
+      - ./logs:/app/logs
     container_name: eva-api
   evamongo:
     image: mongo:latest
