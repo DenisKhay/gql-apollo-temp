@@ -16,4 +16,4 @@ RUN npm list -depth=0
 
 EXPOSE 4000
 
-CMD [ "npm", "run", "start:debug" ]
+CMD [ "npm", "start" ]

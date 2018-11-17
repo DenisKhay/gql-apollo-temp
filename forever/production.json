@@ -1,4 +1,5 @@
 {
+  "debug": true,
   "append": true,
   "verbose": true,
   "script": "index.js",
