@@ -4,8 +4,6 @@ const schema = require('./schema/schema');
 const mongoose = require('mongoose');
 const {DB_URL, DB_NAME, DB_USERNAME, DB_PASSWORD} = require('./environment');
 
-console.log('env fle is', require('./environment'));
-
 mongoose.connect(DB_URL, {
   useNewUrlParser: true,
   user: DB_USERNAME,

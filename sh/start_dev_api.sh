@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+#draft - not works.. was created for debugging
 docker stop eva-api
 docker rm -f eva-api
 docker rmi -f evaapi:latest

@@ -11,6 +11,7 @@ COPY ./forever/production.json ./forever/production.json
 ENV NODE_ENV=production
 
 RUN ls -al -R
+RUN npm i forever@0.15.3 -g
 RUN npm ci
 RUN npm list -depth=0
 
