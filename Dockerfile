@@ -2,13 +2,19 @@ FROM node:10.13.0-alpine
 
 WORKDIR /app/
 
-COPY . .
+COPY ./server/ ./server/
 
-RUN ls -al -R
+COPY ./package*.json ./
+COPY ./forever/production.json ./forever/production.json
+
 
 ENV NODE_ENV=production
-RUN npm i
 
 RUN ls -al -R
+RUN npm i forever@0.15.3 -g
+RUN npm ci
+RUN npm list -depth=0
+
+EXPOSE 4000
 
 CMD [ "npm", "start" ]

@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+  web:
+    build: .
+    ports:
+      - 8087:4000
+    depends_on:
+      - evamongo
+    environment:
+      - DB_USERNAME
+      - DB_PASSWORD
+      - DB_NAME
+      - DB_URL
+    volumes:
+      - ./logs:/app/logs
+    container_name: eva-api
+  evamongo:
+    image: mongo:latest
+    volumes:
+      - ./dbdata:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: $DB_USERNAME
+      MONGO_INITDB_ROOT_PASSWORD: $DB_PASSWORD
+    container_name: eva-mongo
+networks:
+  default:
+    name: eva-network

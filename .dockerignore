@@ -1,5 +1,7 @@
 node_modules
 dbdata
+dbdatadev
+backup
 .dockerignore
 .eslintignore
 .eslintrc.js

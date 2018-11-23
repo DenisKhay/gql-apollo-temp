@@ -2,19 +2,17 @@ const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const schema = require('./schema/schema');
 const mongoose = require('mongoose');
-const { connection } = mongoose;
+const {DB_URL, DB_NAME, DB_USERNAME, DB_PASSWORD} = require('./environment');
 
-const DB_URL = 'mongodb://localhost:27017/my-super-db';
-
-
-mongoose.connect(DB_URL, { useNewUrlParser: true });
-connection.on('error', (e) => {
-  console.error('Error: ', e);
-  throw new Error('Db connection failed');
-});
-connection.once('open', () => {
-  // eslint-disable-next-line
+mongoose.connect(DB_URL, {
+  useNewUrlParser: true,
+  user: DB_USERNAME,
+  pass: DB_PASSWORD,
+  dbName: DB_NAME,
+}).then(() => {
   console.log('Connection established');
+}).catch((e)=>{
+  console.error('Connection error: ', e);
 });
 
 const app = express();
